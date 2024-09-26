@@ -1,0 +1,6 @@
+@CrossIdentityProject.API_HostAddress = http://localhost:5095
+
+GET {{CrossIdentityProject.API_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
