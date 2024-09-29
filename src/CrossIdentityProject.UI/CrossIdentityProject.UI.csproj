@@ -6,4 +6,20 @@
     <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
 
+  <ItemGroup>
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="8.0.5" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="wwwroot\account_form\.DS_Store" />
+    <None Include="wwwroot\account_form\css\.DS_Store" />
+    <None Include="wwwroot\account_form\css\bootstrap\.DS_Store" />
+    <None Include="wwwroot\account_form\css\bootstrap\mixins\.DS_Store" />
+    <None Include="wwwroot\account_form\fonts\.DS_Store" />
+    <None Include="wwwroot\account_form\images\.DS_Store" />
+    <None Include="wwwroot\account_form\js\.DS_Store" />
+    <None Include="wwwroot\account_form\scss\.DS_Store" />
+    <None Include="wwwroot\account_form\scss\bootstrap\.DS_Store" />
+  </ItemGroup>
+
 </Project>

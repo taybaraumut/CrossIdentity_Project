@@ -16,6 +16,14 @@ builder.Services.AddIdentity<AppUser, AppRole>()
     .AddEntityFrameworkStores<Context>()
     .AddDefaultTokenProviders();
 
+builder.Services.ConfigureApplicationCookie(options =>
+{
+	options.LoginPath = "/Auth/Login";
+	options.LogoutPath = "/Auth/Logout";
+	options.AccessDeniedPath = "/Auth/AccessDenied";
+	options.SlidingExpiration = true;
+});
+
 var configuration = builder.Configuration.GetConnectionString("DefaultConnection");
 
 builder.Services.AddDbContext<Context>(db =>

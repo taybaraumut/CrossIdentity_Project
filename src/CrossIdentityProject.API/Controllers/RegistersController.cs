@@ -16,8 +16,8 @@ namespace CrossIdentityProject.API.Controllers
         {
             this.userManager = userManager;
         }
-
-        [HttpPost()]
+		[ValidateAntiForgeryToken]
+		[HttpPost()]
         public async Task<IActionResult> SignUp([FromBody] RegisterModel registerModel)
         {
             AppUser user = new AppUser()

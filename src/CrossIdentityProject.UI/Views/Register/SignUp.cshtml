@@ -1,0 +1,62 @@
+﻿@using CrossIdentityProject.UI.Models.IdentityViewModels
+@model RegisterViewModel
+
+@{
+    ViewData["Title"] = "SignUp";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<section class="ftco-section">
+	<div class="container">
+		<div class="row justify-content-center">
+			<div class="col-md-6 text-center mb-5">
+				<h2 class="heading-section">Cross Identity</h2>
+			</div>
+		</div>
+		<div class="row justify-content-center">
+			<div class="col-md-7 col-lg-5">
+				<div class="login-wrap p-4 p-md-5">
+					<div class="icon d-flex align-items-center justify-content-center">
+						<span class="fa fa-user-o"></span>
+					</div>
+					<h3 class="text-center mb-4 font-weight-bold">Üye Ol</h3>
+					<form asp-controller="Register" asp-action="SignUp" method="post" class="login-form">
+						<div class="form-group">
+							<input type="text" class="form-control rounded-left" asp-for=Name placeholder="Adınız" required>
+						</div>
+						<div class="form-group">
+							<input type="text" class="form-control rounded-left" asp-for="Surname" placeholder="Soyadınız" required>
+						</div>
+						<div class="form-group">
+							<input type="text" class="form-control rounded-left" asp-for="UserName" placeholder="Kullanıcı Adınız" required>
+						</div>
+						<div class="form-group">
+							<input type="text" class="form-control rounded-left" asp-for="Email" placeholder="Email Adresiniz" required>
+						</div>
+						<div class="form-group">
+							<input type="text" class="form-control rounded-left" asp-for="City" placeholder="Bulunduğunuz Şehir" required>
+						</div>
+						<div class="form-group">
+							<input type="text" class="form-control rounded-left" asp-for="District" placeholder="Bulunduğunuz İlçe" required>
+						</div>
+						<div class="form-group d-flex">
+							<input type="password" class="form-control rounded-left" asp-for="Password" placeholder="Şifre" required>
+						</div>
+						<div class="form-group d-flex">
+							<input type="password" class="form-control rounded-left" asp-for="ConfirmPassword" placeholder="Şifre Tekrar " required>
+						</div>
+						<div class="form-group">
+							<button type="submit" class="form-control btn btn-primary rounded submit px-3">Giriş Yap</button>
+						</div>
+						<div class="form-group d-md-flex">
+							<div class="w-100 text-md-center">
+								<a href="#">Şifremi Unuttum?</a>
+							</div>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+
