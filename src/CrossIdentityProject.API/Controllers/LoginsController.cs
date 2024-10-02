@@ -1,14 +1,9 @@
 ﻿using CrossIdentityProject.API.Entities;
 using CrossIdentityProject.API.Models.IdentityModels;
 using CrossIdentityProject.API.Services.ValidatorServices.LoginValidatorServices;
-using FluentValidation;
 using FluentValidation.Results;
-using Microsoft.AspNetCore.Authentication;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Security.Claims;
 
 namespace CrossIdentityProject.API.Controllers
 {

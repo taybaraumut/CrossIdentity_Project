@@ -18,6 +18,7 @@ namespace CrossIdentityProject.UI.Controllers
 			this.httpClient = httpClient;
 			this.loginValidatorService = loginValidatorService;
 		}
+
 		[HttpGet]
 		public IActionResult SignIn()
 		{
