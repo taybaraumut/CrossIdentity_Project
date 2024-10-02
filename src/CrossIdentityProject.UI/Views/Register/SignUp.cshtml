@@ -22,28 +22,36 @@
 					<h3 class="text-center mb-4 font-weight-bold">Üye Ol</h3>
 					<form asp-controller="Register" asp-action="SignUp" method="post" class="login-form">
 						<div class="form-group">
-							<input type="text" class="form-control rounded-left" asp-for=Name placeholder="Adınız" required>
+							<input type="text" class="form-control rounded-left" asp-for=Name placeholder="Adınız">
+							<span asp-validation-for="Name" class="text-danger"></span>
 						</div>
 						<div class="form-group">
-							<input type="text" class="form-control rounded-left" asp-for="Surname" placeholder="Soyadınız" required>
+							<input type="text" class="form-control rounded-left" asp-for="Surname" placeholder="Soyadınız" >
+							<span asp-validation-for="Surname" class="text-danger"></span>
 						</div>
 						<div class="form-group">
-							<input type="text" class="form-control rounded-left" asp-for="UserName" placeholder="Kullanıcı Adınız" required>
+							<input type="text" class="form-control rounded-left" asp-for="Username" placeholder="Kullanıcı Adınız" >
+							<span asp-validation-for="Username" class="text-danger"></span>
 						</div>
 						<div class="form-group">
-							<input type="text" class="form-control rounded-left" asp-for="Email" placeholder="Email Adresiniz" required>
+							<input type="text" class="form-control rounded-left" asp-for="Email" placeholder="Email Adresiniz" >
+							<span asp-validation-for="Username" class="text-danger"></span>
 						</div>
 						<div class="form-group">
-							<input type="text" class="form-control rounded-left" asp-for="City" placeholder="Bulunduğunuz Şehir" required>
+							<input type="text" class="form-control rounded-left" asp-for="City" placeholder="Bulunduğunuz Şehir" >
+							<span asp-validation-for="City" class="text-danger"></span>
 						</div>
 						<div class="form-group">
-							<input type="text" class="form-control rounded-left" asp-for="District" placeholder="Bulunduğunuz İlçe" required>
+							<input type="text" class="form-control rounded-left" asp-for="District" placeholder="Bulunduğunuz İlçe" >
+							<span asp-validation-for="District" class="text-danger"></span>
 						</div>
-						<div class="form-group d-flex">
-							<input type="password" class="form-control rounded-left" asp-for="Password" placeholder="Şifre" required>
+						<div class="form-group">
+							<input type="password" class="form-control rounded-left" asp-for="Password" id="Password" placeholder="Şifreniz">
+							<span asp-validation-for="Password" class="text-danger"></span>
 						</div>
-						<div class="form-group d-flex">
-							<input type="password" class="form-control rounded-left" asp-for="ConfirmPassword" placeholder="Şifre Tekrar " required>
+						<div class="form-group">
+							<input type="password" class="form-control rounded-left" asp-for="ConfirmPassword" id="Password" placeholder="Şifre Tekrar">
+							<span asp-validation-for="ConfirmPassword" class="text-danger"></span>
 						</div>
 						<div class="form-group">
 							<button type="submit" class="form-control btn btn-primary rounded submit px-3">Giriş Yap</button>

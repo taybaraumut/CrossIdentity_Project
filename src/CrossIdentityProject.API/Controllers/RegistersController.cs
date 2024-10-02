@@ -1,6 +1,7 @@
 ﻿using CrossIdentityProject.API.Entities;
 using CrossIdentityProject.API.Models.IdentityModels;
-using Microsoft.AspNetCore.Http;
+using CrossIdentityProject.API.Services.ValidatorServices.RegisterValidatorServices;
+using FluentValidation.Results;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
@@ -11,34 +12,42 @@ namespace CrossIdentityProject.API.Controllers
     public class RegistersController : ControllerBase
     {
         private readonly UserManager<AppUser> userManager;
+        private readonly IRegisterValidatorService registerValidatorService;
 
-        public RegistersController(UserManager<AppUser> userManager)
+        public RegistersController(UserManager<AppUser> userManager,
+               IRegisterValidatorService registerValidatorService)
         {
             this.userManager = userManager;
+            this.registerValidatorService = registerValidatorService;
         }
-		[ValidateAntiForgeryToken]
-		[HttpPost()]
-        public async Task<IActionResult> SignUp([FromBody] RegisterModel registerModel)
+        [HttpPost()]
+        public async Task<IActionResult> SignUp([FromBody] RegisterModel model)
         {
-            AppUser user = new AppUser()
-            {
-                Name = registerModel.Name,
-                Surname = registerModel.Surname,
-                UserName = registerModel.UserName,
-                Email = registerModel.Email,
-                City = registerModel.City,
-                District = registerModel.District,
-                Code = 62,            
-            }; 
+            ValidationResult validationResult = registerValidatorService.Validate(model);
 
-            var create_user = await userManager.CreateAsync(user,registerModel.Password);
-
-            if (create_user.Succeeded)
+            if (validationResult.IsValid)
             {
-                return Ok("Başarılı");
+                AppUser user = new AppUser()
+                {
+                    Name = model.Name,
+                    Surname = model.Surname,
+                    UserName = model.Username,
+                    Email = model.Email,
+                    City = model.City,
+                    District = model.District,
+                    Code = 62,
+                };
+
+                var create_user = await userManager.CreateAsync(user, model.Password);
+
+                if (create_user.Succeeded)
+                {
+                    return Ok("Başarılı");
+                }
             }
 
-            return Ok();
+            return Ok(validationResult.Errors.Select(x=>x.ErrorMessage));
+
         }
     }
 }
