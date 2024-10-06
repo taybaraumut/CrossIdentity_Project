@@ -1,52 +1,27 @@
-﻿using CrossIdentityProject.API.Entities;
-using CrossIdentityProject.API.Models.IdentityModels;
-using CrossIdentityProject.API.Services.ValidatorServices.LoginValidatorServices;
-using FluentValidation.Results;
-using Microsoft.AspNetCore.Identity;
+﻿using CrossIdentityProject.API.Models.IdentityModels;
+using CrossIdentityProject.API.Services.IdentityServices.LoginIdentityServices;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CrossIdentityProject.API.Controllers
 {
-	[Route("api/[controller]")]
-	[ApiController]
-	public class LoginsController : ControllerBase
-	{
-		private readonly SignInManager<AppUser> signInManager;
-		private readonly UserManager<AppUser> userManager;
-		private readonly ILoginValidatorService loginValidatorService;
-		public LoginsController(SignInManager<AppUser> signInManager,
-			   UserManager<AppUser> userManager,
-			   ILoginValidatorService loginValidatorService)
+    [Route("api/[controller]")]
+    [ApiController]
+    public class LoginsController : ControllerBase
+    {
+        private readonly ILoginIdentityService loginIdentityService;
 
-		{
-			this.signInManager = signInManager;
-			this.userManager = userManager;
-			this.loginValidatorService = loginValidatorService;
-		}
-		[HttpPost()]
-		public async Task<IActionResult> SignIn([FromBody] LoginModel model)
-		{
-            ValidationResult validationResult = loginValidatorService.Validate(model);
+        public LoginsController(ILoginIdentityService loginIdentityService)
+        {
+            this.loginIdentityService = loginIdentityService;
+        }
 
-            if (validationResult.IsValid)
-			{
-				var result = await signInManager.PasswordSignInAsync(model.Username, model.Password, isPersistent: false, lockoutOnFailure: true);
+        [HttpPost()]
+        public async Task<IActionResult> SignIn([FromBody] LoginModel model)
+        {
+            return Ok(await loginIdentityService.LoginAsync(model));
+        }
 
-				if (result.Succeeded)
-				{
-					var user_info = await userManager.FindByNameAsync(model.Username);
+    }
 
-					var name = user_info!.Name;
-
-					return Ok($"Login successful + {name}");
-				}
-
-				return Unauthorized("Invalid login attempt");
-			}
-
-			return Ok(validationResult.Errors.Select(x=>x.ErrorMessage));
-
-		}
-
-	}
 }
+

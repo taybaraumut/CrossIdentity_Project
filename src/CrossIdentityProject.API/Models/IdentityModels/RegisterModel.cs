@@ -1,6 +1,6 @@
 ﻿namespace CrossIdentityProject.API.Models.IdentityModels
 {
-    public struct RegisterModel
+    public class RegisterModel
     {
         public string Name { get; set; }
         public string Surname { get; set; }

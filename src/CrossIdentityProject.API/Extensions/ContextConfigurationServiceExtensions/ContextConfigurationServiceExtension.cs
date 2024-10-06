@@ -1,4 +1,5 @@
 ﻿using CrossIdentityProject.API.DbContext;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.EntityFrameworkCore;
 
 namespace CrossIdentityProject.API.Extensions.ContextConfigurationServiceExtensions

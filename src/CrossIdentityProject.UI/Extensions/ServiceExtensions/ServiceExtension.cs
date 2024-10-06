@@ -1,6 +1,4 @@
 ﻿using CrossIdentityProject.UI.Models.IdentityViewModels;
-using CrossIdentityProject.UI.Services.ValidatorServices.LoginValidatorServices;
-using CrossIdentityProject.UI.Services.ValidatorServices.RegisterValidatorServices;
 using CrossIdentityProject.UI.ValidationRules.IdentityValidationRules;
 using FluentValidation;
 

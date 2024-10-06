@@ -35,9 +35,17 @@ namespace CrossIdentityProject.API.ValidationRules.IdentityValidationRules
                 .MinimumLength(10).WithMessage("şifre en az 10 karakter olabilir")
                 .MaximumLength(25).WithMessage("şifre en fazla 25 karakter olabilir");
 
-            RuleFor(x => x.Password).NotNull().WithMessage("şifre tekrar boş geçilemez")
-                .MinimumLength(10).WithMessage("şifre tekrar en az 10 karakter olabilir")
-                .MaximumLength(25).WithMessage("şifre tekrar en fazla 25 karakter olabilir");
+            RuleFor(x => x.ConfirmPassword).NotNull().WithMessage("şifre tekrar boş geçilemez");
+
+            RuleFor(x => x).Custom((model, context) =>
+            {
+                if (model.Password != model.ConfirmPassword)
+                {
+                    context.AddFailure("ConfirmPassword", "şifre ve şifre tekrar aynı olmalıdır.");
+                }
+            });
+
+
         }
     }
 }

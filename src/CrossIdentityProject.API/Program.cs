@@ -1,7 +1,9 @@
 using CrossIdentityProject.API.Extensions.ContextConfigurationServiceExtensions;
 using CrossIdentityProject.API.Extensions.IdentityConfigurationServiceExtensions;
+using CrossIdentityProject.API.Extensions.MiddlewareServiceExtensions;
 using CrossIdentityProject.API.Extensions.ServiceExtensions;
 using CrossIdentityProject.API.Extensions.ValidationServiceExtensions;
+
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -16,8 +18,9 @@ builder.Services.AddSwaggerGen();
 
 builder.AddIdentityConfigurationServiceExtension();
 builder.AddValidationServiceExtension();
-builder.AddServiceExtensions();
+builder.AddServiceExtension();
 builder.AddContextConfigurationServiceExtension();
+
 
 //builder.Services.ConfigureApplicationCookie(options =>
 //{
@@ -39,9 +42,7 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
-
 app.UseAuthorization();
-
 app.MapControllers();
-
+app.UseMiddlewareHandler();
 app.Run();

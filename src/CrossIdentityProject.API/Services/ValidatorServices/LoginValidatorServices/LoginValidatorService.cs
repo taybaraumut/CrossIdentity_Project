@@ -11,7 +11,7 @@ namespace CrossIdentityProject.API.Services.ValidatorServices.LoginValidatorServ
         {
             this.validator = validator;
         }
-        public ValidationResult Validate(LoginModel model)
+        public async Task<ValidationResult> Validate(LoginModel model)
         {
             return validator.Validate(model);
         }

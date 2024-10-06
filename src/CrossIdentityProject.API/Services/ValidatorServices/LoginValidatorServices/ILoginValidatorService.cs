@@ -5,7 +5,7 @@ namespace CrossIdentityProject.API.Services.ValidatorServices.LoginValidatorServ
 {
     public interface ILoginValidatorService
     {
-        public ValidationResult Validate(LoginModel model);
+        public Task<ValidationResult> Validate(LoginModel model);
         
     }
 }
