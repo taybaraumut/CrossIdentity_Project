@@ -12,8 +12,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace CrossIdentityProject.API.Migrations
 {
     [DbContext(typeof(Context))]
-    [Migration("20240926195546_cross_ıdentity_project_mig_one")]
-    partial class cross_ıdentity_project_mig_one
+    [Migration("20241010163311_crossıdentityproject_mig_one")]
+    partial class crossıdentityproject_mig_one
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

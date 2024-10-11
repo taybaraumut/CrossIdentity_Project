@@ -3,7 +3,7 @@
 
 @{
     ViewData["Title"] = "SignUp";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+	Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <section class="ftco-section">
@@ -20,7 +20,7 @@
 						<span class="fa fa-user-o"></span>
 					</div>
 					<h3 class="text-center mb-4 font-weight-bold">Üye Ol</h3>
-					<form asp-controller="Register" asp-action="SignUp" method="post" class="login-form">
+					<form asp-controller="Register" asp-action="SignUp" method="post" class="login-form" id="registerForm">
 						<div class="form-group">
 							<input type="text" class="form-control rounded-left" asp-for=Name placeholder="Adınız">
 							<span asp-validation-for="Name" class="text-danger"></span>
@@ -35,7 +35,7 @@
 						</div>
 						<div class="form-group">
 							<input type="text" class="form-control rounded-left" asp-for="Email" placeholder="Email Adresiniz" >
-							<span asp-validation-for="Username" class="text-danger"></span>
+							<span asp-validation-for="Email" class="text-danger"></span>
 						</div>
 						<div class="form-group">
 							<input type="text" class="form-control rounded-left" asp-for="City" placeholder="Bulunduğunuz Şehir" >
@@ -46,15 +46,16 @@
 							<span asp-validation-for="District" class="text-danger"></span>
 						</div>
 						<div class="form-group">
-							<input type="password" class="form-control rounded-left" asp-for="Password" id="Password" placeholder="Şifreniz">
+							<input type="password" class="form-control rounded-left" asp-for="Password" id="password" placeholder="Şifreniz">
 							<span asp-validation-for="Password" class="text-danger"></span>
 						</div>
 						<div class="form-group">
-							<input type="password" class="form-control rounded-left" asp-for="ConfirmPassword" id="Password" placeholder="Şifre Tekrar">
+							<input type="password" class="form-control rounded-left" asp-for="ConfirmPassword" id="confirmPassword" placeholder="Şifre Tekrar">
 							<span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+							<span id="message" class="text-danger"></span>
 						</div>
 						<div class="form-group">
-							<button type="submit" class="form-control btn btn-primary rounded submit px-3">Giriş Yap</button>
+							<button type="submit" id="submitButton" class="form-control btn btn-primary rounded submit px-3">Kayıt Ol</button>
 						</div>
 						<div class="form-group d-md-flex">
 							<div class="w-100 text-md-center">
@@ -68,3 +69,27 @@
 	</div>
 </section>
 
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+
+<script>
+	document.getElementById('registerForm').addEventListener('input', function () {
+		var password = document.getElementById('password').value;
+		var confirmPassword = document.getElementById('confirmPassword').value;
+		var message = document.getElementById('message');
+		var submitButton = document.getElementById('submitButton');
+
+		if (password != confirmPassword) {
+			if (confirmPassword == "") {
+				message.textContent = ""; // Mesajı temizle
+				submitButton.disabled = true; // Şifreler eşleşiyorsa butonu aktif et
+			}
+			else{
+				message.textContent = "şifre ve şifre tekrar aynı olmalıdır.";
+				submitButton.disabled = true; // Şifreler eşleşmiyorsa butonu devre dışı bırak
+			}			
+		} else {
+			message.textContent = ""; // Mesajı temizle
+			submitButton.disabled = false; // Şifreler eşleşiyorsa butonu aktif et
+		}
+	});
+</script>

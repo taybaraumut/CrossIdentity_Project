@@ -40,7 +40,7 @@ namespace CrossIdentityProject.API.Middlewares.LoginResponseMessageMiddlewares
                         await context.Response.WriteAsJsonAsync(validationResult.Errors.Select(x => x.ErrorMessage));
                         return;
                     }
-                }
+                }               
 
             }
 
@@ -48,4 +48,5 @@ namespace CrossIdentityProject.API.Middlewares.LoginResponseMessageMiddlewares
         }
 
     }
+
 }

@@ -29,12 +29,14 @@ namespace CrossIdentityProject.UI.Controllers
             if (response.IsSuccessStatusCode)
             {
                 await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme,
-                    new ClaimsPrincipal(new ClaimsIdentity(new[] { new Claim(ClaimTypes.Name, model.Username!) }, CookieAuthenticationDefaults.AuthenticationScheme)));
+                    new ClaimsPrincipal(new ClaimsIdentity(new[] { new Claim(ClaimTypes.NameIdentifier, model.Username!) }, CookieAuthenticationDefaults.AuthenticationScheme)));
 
                 return RedirectToAction("SignUp", "Register");
             }
-            return View(model);
 
+            ViewBag.LoginFailed = "kullanıcı adı veya şifre hatalı";
+
+            return View();
         }
     }
 }

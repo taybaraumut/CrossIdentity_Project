@@ -1,5 +1,6 @@
 ﻿using CrossIdentityProject.API.Models.IdentityModels;
 using CrossIdentityProject.API.Services.IdentityServices.LoginIdentityServices;
+using CrossIdentityProject.API.Services.LogServices;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CrossIdentityProject.API.Controllers
@@ -9,10 +10,12 @@ namespace CrossIdentityProject.API.Controllers
     public class LoginsController : ControllerBase
     {
         private readonly ILoginIdentityService loginIdentityService;
+        private readonly ILogService logService;
 
-        public LoginsController(ILoginIdentityService loginIdentityService)
+        public LoginsController(ILoginIdentityService loginIdentityService, ILogService logService)
         {
             this.loginIdentityService = loginIdentityService;
+            this.logService = logService;
         }
 
         [HttpPost()]
@@ -20,7 +23,6 @@ namespace CrossIdentityProject.API.Controllers
         {
             return Ok(await loginIdentityService.LoginAsync(model));
         }
-
     }
 
 }

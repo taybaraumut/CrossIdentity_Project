@@ -1,0 +1,59 @@
+﻿
+@{
+    ViewData["Title"] = "Profile";
+    Layout = "~/Views/Shared/_Panel_Layout.cshtml";
+}
+<div class="container mt-3">
+    <div class="row">
+        <div class="col-12">
+            <div class="text-center font-weight-bold">
+                <h4>Kullanıcı Profil Bilgileri</h4>
+            </div>
+        </div>
+    </div>
+</div>
+
+<form>
+    <div class="form-group mt-4">
+        <label for="exampleInputPassword1">Ad</label>
+        <input type="text" class="form-control" id="exampleInputPassword1">
+        <small id="emailHelp" class="form-text text-muted">bu alandan adınızı güncelleyebilirsiniz</small>
+    </div>
+    <div class="form-group mt-4">
+        <label for="exampleInputPassword1">Soyad</label>
+        <input type="text" class="form-control" id="exampleInputPassword1">
+        <small id="emailHelp" class="form-text text-muted">bu alandan soyad adınızı güncelleyebilirsiniz</small>
+    </div>
+    <div class="form-group mt-4">
+        <label for="exampleInputPassword1">Şehir</label>
+        <input type="text" class="form-control" id="exampleInputPassword1">
+        <small id="emailHelp" class="form-text text-muted">bu alandan şehirinizi güncelleyebilirsiniz</small>
+    </div>
+    <div class="form-group mt-4">
+        <label for="exampleInputPassword1">İlçe</label>
+        <input type="text" class="form-control" id="exampleInputPassword1">
+        <small id="emailHelp" class="form-text text-muted">bu alandan ilçenizi güncelleyebilirsiniz</small>
+    </div>
+    <div class="form-group mt-4">
+        <label for="exampleInputEmail1">E-Mail Adresi</label>
+        <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+        <small id="emailHelp" class="form-text text-muted">bu alandan email adresinizi güncelleyebilirsiniz</small>
+    </div>
+    <div class="form-group mt-4">
+        <label for="exampleInputPassword1">Kullanıcı Adresi</label>
+        <input type="text" class="form-control" id="exampleInputPassword1">
+        <small id="emailHelp" class="form-text text-muted">bu alandan kullanıcı adınızı güncelleyebilirsiniz</small>
+    </div>
+
+    <div class="form-group mt-4">
+        <select class="form-select" aria-label="Default select example">
+            <option selected>İki Faktörlü Doğrulama</option>
+            <option value="0">Aç</option>
+            <option value="1">Kapat</option>
+        </select>
+        <small id="emailHelp" class="form-text text-muted">bu alandan iki faktörlü doğrulamayı kapatıp açabilirsiniz</small>
+    </div>
+    
+    <button type="submit" class="btn btn-primary mt-4">Kaydet</button>
+</form>
+

@@ -7,7 +7,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace CrossIdentityProject.API.Migrations
 {
     /// <inheritdoc />
-    public partial class cross_ıdentity_project_mig_one : Migration
+    public partial class crossıdentityproject_mig_one : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)

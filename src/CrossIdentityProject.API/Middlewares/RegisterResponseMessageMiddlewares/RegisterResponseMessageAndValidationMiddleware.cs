@@ -7,16 +7,17 @@ namespace CrossIdentityProject.API.Middlewares.RegisterResponseMessageMiddleware
 {
     public class RegisterResponseMessageAndValidationMiddleware
     {
-        private readonly RequestDelegate _next;
+        private readonly RequestDelegate next;
         private readonly IServiceScopeFactory _serviceScopeFactory;
 
         public RegisterResponseMessageAndValidationMiddleware(RequestDelegate next, IServiceScopeFactory serviceScopeFactory)
         {
-            _next = next;
+            this.next = next;
             _serviceScopeFactory = serviceScopeFactory;
         }
         public async Task InvokeAsync(HttpContext context)
         {
+
             if (context.Request.Path == "/api/Registers" && context.Request.Method == "POST")
             {
                 var jsonRequestBody = await new StreamReader(context.Request.Body).ReadToEndAsync();
@@ -40,11 +41,10 @@ namespace CrossIdentityProject.API.Middlewares.RegisterResponseMessageMiddleware
                         await context.Response.WriteAsJsonAsync(validationResult.Errors.Select(x => x.ErrorMessage));
                         return;
                     }
+
                 }
-
             }
-
-            await _next(context);
+            await next(context);
         }
     }
 }

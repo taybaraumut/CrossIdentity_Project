@@ -21,7 +21,7 @@ namespace CrossIdentityProject.UI.ValidationRules.IdentityValidationRules
                 .MaximumLength(15).WithMessage("kullanıcı adı en fazla 15 karakter olabilir");
 
             RuleFor(x => x.Email)
-                .NotEmpty().WithMessage("email boş geçilemez")
+                .NotNull().WithMessage("email boş geçilemez")
                 .EmailAddress().WithMessage("email formatında giriniz lütfen");
 
             RuleFor(x => x.City)
@@ -34,9 +34,7 @@ namespace CrossIdentityProject.UI.ValidationRules.IdentityValidationRules
                 .MinimumLength(10).WithMessage("şifre en az 10 karakter olabilir")
                 .MaximumLength(25).WithMessage("şifre en fazla 25 karakter olabilir");
 
-            RuleFor(x => x.ConfirmPassword).NotNull().WithMessage("şifre tekrar boş geçilemez")
-                .MinimumLength(10).WithMessage("şifre tekrar en az 10 karakter olabilir")
-                .MaximumLength(25).WithMessage("şifre tekrar en fazla 25 karakter olabilir");
+            RuleFor(x => x.ConfirmPassword).NotNull().WithMessage("şifre tekrar boş geçilemez");           
         }
     }
 }

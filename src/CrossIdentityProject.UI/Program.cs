@@ -37,4 +37,8 @@ app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Login}/{action=SignIn}/{id?}");
 
+app.MapControllerRoute(
+    name: "panel",
+    pattern: "{controller=UserPanel}/{action=Index}/{id?}");
+
 app.Run();

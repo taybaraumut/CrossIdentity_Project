@@ -32,6 +32,10 @@
                             <button type="submit" class="form-control btn btn-primary rounded submit px-3">Giriş Yap</button>
                         </div>
 
+                        <div class="form-group text-center">
+                            <span id="message" class="text-danger">@ViewBag.LoginFailed</span>
+                        </div>
+                        
                         <div class="form-group d-md-flex">
                             <div class="w-50">
                                 <a asp-controller="Register" asp-action="SignUp">Hesabın Yokmu?</a>
@@ -41,6 +45,7 @@
                             </div>
                         </div>
                     </form>
+
                 </div>
             </div>
         </div>
