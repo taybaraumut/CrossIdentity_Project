@@ -1,6 +1,7 @@
 ﻿using CrossIdentityProject.API.Models.IdentityModels;
 using CrossIdentityProject.API.Services.IdentityServices.LoginIdentityServices;
 using CrossIdentityProject.API.Services.LogServices;
+using CrossIdentityProject.API.Services.RandomCodeServices;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CrossIdentityProject.API.Controllers

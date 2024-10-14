@@ -1,8 +1,5 @@
 ﻿using CrossIdentityProject.UI.Models.IdentityViewModels;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Newtonsoft.Json;
-using System.Security.Claims;
 
 namespace CrossIdentityProject.UI.Controllers
 {
@@ -28,9 +25,11 @@ namespace CrossIdentityProject.UI.Controllers
 			var response = await client.PostAsJsonAsync("https://localhost:44357/api/Registers", model);
 			if (response.IsSuccessStatusCode)
 			{
-				return RedirectToAction("SignIn", "Login");
+                var email = await response.Content.ReadAsStringAsync();
+
+				return RedirectToAction("EmailConfimation", "EmailVerification", new { email = email});
 			}
 			return View();
 		}
-	}
+    }
 }

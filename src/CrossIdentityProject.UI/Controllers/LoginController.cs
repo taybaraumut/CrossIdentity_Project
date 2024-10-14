@@ -34,7 +34,7 @@ namespace CrossIdentityProject.UI.Controllers
                 return RedirectToAction("SignUp", "Register");
             }
 
-            ViewBag.LoginFailed = "kullanıcı adı veya şifre hatalı";
+            ViewBag.LoginFailed = await response.Content.ReadAsStringAsync();
 
             return View();
         }

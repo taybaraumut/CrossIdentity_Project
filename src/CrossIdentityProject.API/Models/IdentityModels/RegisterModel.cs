@@ -8,7 +8,6 @@
         public string Email { get; set; }
         public string City { get; set; }
         public string District { get; set; }
-        public int Code { get; set; }
         public string Password { get; set; }
         public string ConfirmPassword { get; set; }
     }

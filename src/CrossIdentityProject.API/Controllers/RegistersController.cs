@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace CrossIdentityProject.API.Controllers
 {
     [Route("api/[controller]")]
-    [ApiController]
+    [ApiController] 
     public class RegistersController : ControllerBase
     {
         private readonly IRegisterIdentityService registerIdentityService;
@@ -20,5 +20,6 @@ namespace CrossIdentityProject.API.Controllers
         {
             return Ok(await registerIdentityService.RegisterAsync(model));
         }
+       
     }
 }

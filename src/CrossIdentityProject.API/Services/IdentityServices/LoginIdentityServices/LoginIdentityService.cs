@@ -1,13 +1,9 @@
-﻿using CrossIdentityProject.API.DbContext;
-using CrossIdentityProject.API.Entities;
+﻿using CrossIdentityProject.API.Entities;
 using CrossIdentityProject.API.Models.IdentityModels;
 using CrossIdentityProject.API.Services.LogServices;
 using CrossIdentityProject.API.Services.ValidatorServices.LoginValidatorServices;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
-using Serilog;
-using System.Net;
 
 namespace CrossIdentityProject.API.Services.IdentityServices.LoginIdentityServices
 {
@@ -17,6 +13,7 @@ namespace CrossIdentityProject.API.Services.IdentityServices.LoginIdentityServic
         private readonly UserManager<AppUser> userManager;
         private readonly ILoginValidatorService loginValidatorService;
         private readonly ILogService logService;
+
         public LoginIdentityService(SignInManager<AppUser> signInManager,
                UserManager<AppUser> userManager,
                ILoginValidatorService loginValidatorService,
@@ -33,22 +30,32 @@ namespace CrossIdentityProject.API.Services.IdentityServices.LoginIdentityServic
         {
             var result = await signInManager.PasswordSignInAsync(model.Username, model.Password, isPersistent: false, lockoutOnFailure: true);
 
-            if (result.Succeeded)
+            var username_check = await userManager.FindByNameAsync(model.Username);
+
+            if (username_check!.EmailConfirmed != false)
             {
-                var user_info = await userManager.FindByNameAsync(model.Username);
+                if (result.Succeeded)
+                {
+                    var user_info = await userManager.FindByNameAsync(model.Username);
 
-                var name = user_info!.Name;
-                var surname = user_info!.Surname;
-                var email = user_info.Email;
+                    var name = user_info!.Name;
+                    var surname = user_info!.Surname;
+                    var email = user_info.Email;
 
-                logService.Login_Sucess_Logger(name,surname,email!);
+                    logService.Login_Sucess_Logger(name, surname, email!);
 
-                return JsonConvert.SerializeObject($"Welcome : {name + surname}");
+                    return JsonConvert.SerializeObject($"Welcome : {name + surname}");
+                }
+                else
+                {
+                    throw new UnauthorizedAccessException("Email Veya Parola Hatalı");
+                }
             }
             else
             {
-               throw new UnauthorizedAccessException("The Username or Password is Incorrect. Try again.");
+                throw new Exception("Hesabınızı Lütfen Doğrulayınız");
             }
+            
         }
 
     }
