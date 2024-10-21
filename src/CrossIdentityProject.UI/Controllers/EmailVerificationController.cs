@@ -1,15 +1,18 @@
 ﻿using CrossIdentityProject.UI.Models.EmailVerificationModels;
+using CrossIdentityProject.UI.Services.EmailVerificationServices;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CrossIdentityProject.UI.Controllers
 {
+    [Authorize]
     public class EmailVerificationController : Controller
     {
-        private readonly IHttpClientFactory httpClientFactory;
+        private readonly IEmailVerificationService emailVerificationService;
 
-        public EmailVerificationController(IHttpClientFactory httpClientFactory)
+        public EmailVerificationController(IEmailVerificationService emailVerificationService)
         {
-            this.httpClientFactory = httpClientFactory;
+            this.emailVerificationService = emailVerificationService;
         }
 
         [HttpGet]
@@ -22,13 +25,13 @@ namespace CrossIdentityProject.UI.Controllers
         [HttpPost]
         public async Task<IActionResult> EmailConfimation(VerificationModel model)
         {
-            var client = httpClientFactory.CreateClient();
-            var response = await client.PostAsJsonAsync("https://localhost:44357/api/EmailVerifications", model);
-            if (response.IsSuccessStatusCode)
-            {
+            var result = await emailVerificationService.EmailVerification(model);
+
+            if (result == true)
                 return RedirectToAction("SignIn", "Login");
-            }
-            return View();
+
+            else
+                return View();
         }
     }
 }

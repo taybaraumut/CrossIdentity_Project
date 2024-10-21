@@ -1,9 +1,11 @@
 ﻿using CrossIdentityProject.API.Models.IdentityModels;
 using CrossIdentityProject.API.Services.IdentityServices.RegisterIdentityServices;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CrossIdentityProject.API.Controllers
 {
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController] 
     public class RegistersController : ControllerBase

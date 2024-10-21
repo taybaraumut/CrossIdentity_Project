@@ -2,11 +2,11 @@
 using System.Net;
 using System.Text;
 
-namespace CrossIdentityProject.API.Services.SendMailServices
+namespace CrossIdentityProject.API.Services.SendMailServices.RegistrationVerificationEmailSendingServices
 {
-    public class SendMailService:ISendMailService
+    public class RegistrationVerificationEmailSendingService : IRegistrationVerificationEmailSendingService
     {
-        public void SendEmail(string email,string name,string username,ushort verificationCode)
+        public void RegistrationVerificationEmailSend(string email, string name, string username, ushort verificationCode)
         {
             SmtpClient client = new SmtpClient("smtp.gmail.com", 587);
             client.EnableSsl = true;
@@ -27,7 +27,7 @@ namespace CrossIdentityProject.API.Services.SendMailServices
             mailBody.AppendFormat("<br/>");
             mailBody.AppendFormat($"<p>Kayıt Olduğunuz İçin Teşşekürler Sayın: {name}</p>");
 
-         
+
             mailMessage.Body = mailBody.ToString();
 
             // E-postayı gönder

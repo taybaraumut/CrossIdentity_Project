@@ -1,10 +1,16 @@
 using CrossIdentityProject.API.Extensions.ContextConfigurationServiceExtensions;
 using CrossIdentityProject.API.Extensions.IdentityConfigurationServiceExtensions;
 using CrossIdentityProject.API.Extensions.MiddlewareServiceExtensions;
+using CrossIdentityProject.API.Extensions.MinimalApiExtensions;
 using CrossIdentityProject.API.Extensions.ServiceExtensions;
 using CrossIdentityProject.API.Extensions.ValidationServiceExtensions;
-using Microsoft.AspNetCore.Identity;
+
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.IdentityModel.Tokens;
+using Newtonsoft.Json;
 using Serilog;
+using System.Text;
 
 
 
@@ -16,28 +22,6 @@ Log.Logger = new LoggerConfiguration()
 
 builder.Host.UseSerilog();
 
-builder.Services.AddControllers();
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
-
-builder.Services.Configure<IdentityOptions>(options =>
-{
-    // Password settings.
-    options.Password.RequireDigit = false;
-    options.Password.RequireLowercase = false;
-    options.Password.RequireNonAlphanumeric = false;
-    options.Password.RequireUppercase = false;
-
-    // Lockout settings.
-    options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(5);
-    options.Lockout.MaxFailedAccessAttempts = 5;
-    options.Lockout.AllowedForNewUsers = true;
-
-    // User settings.
-    //options.User.AllowedUserNameCharacters =
-    //"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-._@+";
-    options.User.RequireUniqueEmail = false;
-});
 
 builder.AddIdentityConfigurationServiceExtension();
 builder.AddValidationServiceExtension();
@@ -45,15 +29,29 @@ builder.AddServiceExtension();
 builder.AddContextConfigurationServiceExtension();
 
 
-//builder.Services.ConfigureApplicationCookie(options =>
-//{
-//	options.LoginPath = "/Auth/Login";
-//	options.LogoutPath = "/Auth/Logout";
-//	options.AccessDeniedPath = "/Auth/AccessDenied";
-//	options.SlidingExpiration = true;
-//});
+builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options =>
+{
+    options.TokenValidationParameters = new TokenValidationParameters
+    {
+        ValidateIssuerSigningKey = true,
+        IssuerSigningKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes("this_is_a_very_strong_and_secure_key_123456!")),
+        ValidateIssuer = false,
+        ValidateAudience = false,
+    };
+});
 
+builder.Services
+    .AddAuthorization(opt =>
+    {
+        // Configure the default policy
+        opt.DefaultPolicy = new AuthorizationPolicyBuilder(JwtBearerDefaults.AuthenticationScheme)
+            .RequireAuthenticatedUser()
+            .Build();
+    });
 
+builder.Services.AddControllers();
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
 
@@ -64,8 +62,11 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+
 app.UseHttpsRedirection();
-app.UseAuthorization();
 app.MapControllers();
+app.UseAuthentication();
+app.UseAuthorization();
+app.UseMinimalApiHandler();
 app.UseMiddlewareHandler();
 app.Run();

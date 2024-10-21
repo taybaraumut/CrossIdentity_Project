@@ -2,7 +2,7 @@
 using CrossIdentityProject.API.Models.IdentityModels;
 using CrossIdentityProject.API.Services.LogServices;
 using CrossIdentityProject.API.Services.RandomCodeServices;
-using CrossIdentityProject.API.Services.SendMailServices;
+using CrossIdentityProject.API.Services.SendMailServices.RegistrationVerificationEmailSendingServices;
 using CrossIdentityProject.API.Services.ValidatorServices.RegisterValidatorServices;
 using Microsoft.AspNetCore.Identity;
 using Newtonsoft.Json;
@@ -13,14 +13,14 @@ namespace CrossIdentityProject.API.Services.IdentityServices.RegisterIdentitySer
     {
         private readonly UserManager<AppUser> userManager;
         private readonly IRegisterValidatorService registerValidatorService;
-        private readonly ISendMailService sendMailService;
+        private readonly IRegistrationVerificationEmailSendingService sendMailService;
         private readonly IRandomCodeService randomCodeService;
         private readonly ILogService logService;
 
         public RegisterIdentityService(UserManager<AppUser> userManager,
                IRegisterValidatorService registerValidatorService,
                ILogService logService,
-               ISendMailService sendMailService,
+               IRegistrationVerificationEmailSendingService sendMailService,
                IRandomCodeService randomCodeService)
         {
             this.userManager = userManager;
@@ -48,7 +48,7 @@ namespace CrossIdentityProject.API.Services.IdentityServices.RegisterIdentitySer
 
             if (create_user.Succeeded)
             {
-                sendMailService.SendEmail(user.Email,user.Name,user.UserName,(ushort)user.Code);
+                sendMailService.RegistrationVerificationEmailSend(user.Email,user.Name,user.UserName,(ushort)user.Code);
 
                 logService.Register_Sucess_Logger(user.Name, user.Surname, user.Email, user.UserName, user.District, user.City);
                 return model.Email;

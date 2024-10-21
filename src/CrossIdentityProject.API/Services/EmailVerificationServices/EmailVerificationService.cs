@@ -5,7 +5,7 @@ using Newtonsoft.Json;
 
 namespace CrossIdentityProject.API.Services.EmailVerificationServices
 {
-    public class EmailVerificationService : IEmailVerificationService
+    public class EmailVerificationService : IEmailMemberVerificationService
     {
         private readonly UserManager<AppUser> userManager;
 
@@ -29,7 +29,7 @@ namespace CrossIdentityProject.API.Services.EmailVerificationServices
             {
                 string message = "The Verification Code You Entered is Incorrect";
                 int status_code = 400;
-                throw new BadHttpRequestException(message,status_code);
+                throw new BadHttpRequestException(message, status_code);
             }
         }
     }

@@ -16,6 +16,7 @@ builder.AddValidationConfigurationServiceExtension();
 builder.AddServiceExtension();
 builder.AddValidationServiceExtension();
 
+builder.Services.AddHttpContextAccessor();
 
 
 var app = builder.Build();
